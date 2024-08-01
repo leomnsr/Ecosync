@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DataAPI</name>
+    </assembly>
+    <members>
+        <member name="M:DataAPI.Controllers.AuthController.Login(DataAPI.Schemas.LoginUserSchema)">
+            <summary>
+            Authenticates a user and generates a JWT token and a refresh token.
+            </summary>
+            <param name="user">The user to authenticate, containing the email and password.</param>
+            <returns>A JWT token and a refresh token if the authentication is successful; otherwise, an Unauthorized status code.</returns>
+            <response code="200">Returns a JWT token and a refresh token if the authentication is successful.</response>
+            <response code="401">Returns an Unauthorized status code if the authentication is unsuccessful.</response>
+        </member>
+        <member name="M:DataAPI.Controllers.AuthController.Logout">
+            <summary>
+            Logs out the user
+            </summary>
+            <returns></returns>
+            <response code="200">Returns an OK status code if the user is successfully logged out.</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authorized.</response>
+        </member>
+        <member name="M:DataAPI.Controllers.AuthController.Register(DataAPI.Schemas.RegisterUserSchema)">
+            <summary>
+            Regiser a new user
+            </summary>
+            <param name="user">The user to create containing the first name, last name, email and password</param>
+            <returns>A confirmation that the user has been created</returns>
+            <response code="201">Returns a confirmation that the user has been created</response>
+            <response code="400">Returns a Bad Request status code if the user is missing any fields or one of them is invalid</response>
+            <response code="409">Returns a Conflict status code if the email already exists</response>
+        </member>
+        <member name="M:DataAPI.Controllers.AuthController.Refresh(DataAPI.Schemas.Tokens)">
+            <summary>
+            Generates a new JWT token and refresh token
+            </summary>
+            <param name="tokens">The expired jwt and the corresponding refresh token</param>
+            <returns>A new jwr and refresh token</returns>
+            <response code="200">Returns a new JWT token and refresh token</response>
+            <response code="400">Returns a Bad Request status code if the jwt or refresh token is invalid</response>
+        </member>
+        <member name="M:DataAPI.Controllers.ConsumptionController.GetConsumption">
+            <summary>
+            Get the consumption of the user
+            </summary>
+            <returns>The consumption of the user</returns>
+            <response code="200">Returns the consumption of the user</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+        </member>
+        <member name="M:DataAPI.Controllers.ConsumptionController.UpdateConsumption(DataAPI.Schemas.ConsumptionSchema)">
+            <summary>
+            Update the consumption of the user
+            </summary>
+            <param name="consumption">The new consumption of the user</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if the consumption is updated successfully</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+        </member>
+        <member name="M:DataAPI.Controllers.HealthController.Get">
+            <summary>
+            Health check endpoint
+            </summary>
+            <returns>Ok</returns>
+        </member>
+        <member name="M:DataAPI.Controllers.HistoryController.getHistory">
+            <summary>
+            get the history of the user
+            </summary>
+            <returns>
+            The list of history entries of the user
+            </returns>
+            <response code="200">Returns the history of the user</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+        </member>
+        <member name="M:DataAPI.Controllers.HouseController.GetHouse">
+            <summary>
+            Get the house of the user
+            </summary>
+            <returns>The house of the user</returns>
+            <response code="200">Returns the house of the user</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+        </member>
+        <member name="M:DataAPI.Controllers.HouseController.UpdateHouse(DataAPI.Schemas.HouseSchema)">
+            <summary>
+            Update the house of the user
+            </summary>
+            <param name="house">The new house of the user</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if the house is updated successfully</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+        </member>
+        <member name="M:DataAPI.Controllers.TipController.GetTips">
+            <summary>
+            Get the tips for a specific user
+            </summary>
+            <returns>The tips for the user</returns>
+            <response code="200">Returns the tips for the user</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+            <response code="404">Returns a Not Found status code if no tips are found for the user</response>
+        </member>
+        <member name="M:DataAPI.Controllers.TipController.MarkTipAsDone(System.Int64)">
+            <summary>
+            Mark a tip as done
+            </summary>
+            <param name="tipId"></param>
+            <response code="204">Returns a No Content status code if the tip was marked as done</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+            <response code="404">Returns a Not Found status code if the tip is not found</response>
+            <response code="409">Returns a Conflict status code if the tip is already marked as done</response>
+        </member>
+        <member name="M:DataAPI.Controllers.TipController.MarkTipAsUndone(System.Int64)">
+            <summary>
+            Mark a tip as undone
+            </summary>
+            <param name="tipId"></param>
+            <response code="204">Returns an OK status code if the tip was marked as undone</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+            <response code="404">Returns a Not Found status code if the tip is not found</response>
+            <response code="409">Returns a Conflict status code if the tip is not marked as done</response>
+        </member>
+        <member name="M:DataAPI.Controllers.TipController.GetTipsDone">
+            <summary>
+            Get the tips done by the user
+            </summary>
+            <returns> The tips done by the User </returns>
+            <response code="200">Returns the tips done by the user</response>
+            <response code="401">Returns an Unauthorized status code if the user is not authenticated</response>
+        </member>
+        <member name="M:DataAPI.Utils.TipService.GetTipsForUser(System.Int64)">
+            <summary>
+            Get the tips for a specific user 
+            </summary>
+            <param name="userId"></param>
+            <returns>null if the user does not have a history, the list of tips otherwise</returns>
+        </member>
+    </members>
+</doc>

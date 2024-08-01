@@ -1,0 +1,24 @@
+{
+  "name": "CalculationAPI",
+  "version": "1.0.50",
+  "scripts": {
+    "dev": "bun --env-file=../dev.env run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "build": "bun build src/index.ts --outdir ./out",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@elysiajs/bearer": "^1.0.2",
+    "@elysiajs/jwt": "^1.0.2",
+    "@elysiajs/swagger": "^1.0.3",
+    "@incubateur-ademe/nosgestesclimat": "^2.3.0-rc.2",
+    "elysia": "latest",
+    "pg": "^8.11.5",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}

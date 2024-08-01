@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - ${NGINX_PORT}:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - backend
+    depends_on:
+      - data-api
+      - calculation-api
+
+  postgres:
+    image: postgres:alpine
+    restart: always
+    env_file:
+      - ./prod.env
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      # - pgdata:/var/lib/postgresql/data
+      - ./postgres/user.sql:/docker-entrypoint-initdb.d/user.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  data-api:
+    build:
+      context: ./DataAPI/DataAPI/
+      dockerfile: Dockerfile
+    env_file:
+      - ./prod.env
+    networks:
+      - backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  calculation-api:
+    build:
+      context: ./CalculationAPI/
+      dockerfile: Dockerfile
+    env_file:
+      - ./prod.env
+    networks:
+      - backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  backend:
+
+volumes:
+  pgdata:
